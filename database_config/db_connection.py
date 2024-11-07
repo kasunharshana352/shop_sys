@@ -5,7 +5,7 @@ from psycopg2 import sql
 # Function to connect to PostgreSQL database
 def connect_db():
     # Retrieve the PostgreSQL URL from environment variable
-    postgres_url = os.getenv('POSTGRES_URL')
+    postgres_url = os.getenv('POSTGRES_UR')
     
     if not postgres_url:
         raise ValueError("POSTGRES_URL is not set in the environment variables")
