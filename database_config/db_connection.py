@@ -1,32 +1,42 @@
-# database.py
+import os
+import psycopg2
+from psycopg2 import sql
 
-import sqlite3
-
-# Function to connect to the database
+# Function to connect to PostgreSQL database
 def connect_db():
-    conn = sqlite3.connect('stock.db')
+    # Retrieve the PostgreSQL URL from environment variable
+    postgres_url = os.getenv('POSTGRES_URL')
+    
+    if not postgres_url:
+        raise ValueError("POSTGRES_URL is not set in the environment variables")
+
+    # Connect to PostgreSQL using psycopg2
+    conn = psycopg2.connect(postgres_url)
     return conn
 
-# creating tables
+# Creating tables
 def create_table():
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS stock (
-                        name TEXT PRIMARY KEY,
-                        quantity INTEGER NOT NULL
-                    )''')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS selling_prices (
-                        name TEXT PRIMARY KEY,
-                        price REAL NOT NULL
-                    )''')
+    
+    # Create stock table
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS stock (
+        name TEXT PRIMARY KEY,
+        quantity INTEGER NOT NULL
+    )
+    ''')
+
+    # Create selling_prices table
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS selling_prices (
+        name TEXT PRIMARY KEY,
+        price REAL NOT NULL
+    )
+    ''')
+
     conn.commit()
     conn.close()
-
-
-
-
-
-    
 
 # Create the table if it doesn't exist when this module is imported
 create_table()
