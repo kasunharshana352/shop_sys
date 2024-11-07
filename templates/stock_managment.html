@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stock Management System</title>
+</head>
+<body>
+    <h1>Stock Management System</h1>
+    <h2>Add Stock</h2>
+    <form action="/add" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Deduct Stock</h2>
+    <form action="/deduct" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button type="submit">Deduct</button>
+    </form>
+
+    <h2>Stock List</h2>
+    <ul>
+        {% for item in stock_list %}
+        <li>{{ item[0] }} - Quantity: {{ item[1] }} <a href="/delete/{{ item[0] }}">Delete</a></li>
+        {% endfor %}
+    </ul>
+    <br>
+    <center><a href="/"><button>Home</button></a></center>
+
+    
+
+
+
+
+
+
+
+</body>
+</html>

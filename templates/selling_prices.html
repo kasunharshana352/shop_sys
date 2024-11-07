@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stock Management System</title>
+</head>
+<body>
+    <h1>Stock Management System</h1>
+    <h2>Add Stock</h2>
+    <form action="/add_selling_prices" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+        <button type="submit">Add Price</button>
+    </form>
+
+
+    <h2>Selling Price List</h2>
+    <ul>
+        {% for item in prices_list %}
+        <li>{{ item[0] }} - Price: {{ item[1] }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <center><a href="/"><button>Home</button></a></center>
+</body>
+</html>
